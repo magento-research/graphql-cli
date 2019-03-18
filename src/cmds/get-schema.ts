@@ -79,7 +79,6 @@ const command: CommandObject = {
       .implies('--no-endpoint', '--no-header'),
 
   handler: async (context: Context, argv: Arguments) => {
-    debugger
     if (argv.endpoint) {
       argv.all = false
     }

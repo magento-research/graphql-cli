@@ -13,15 +13,15 @@ function fakePrompt(questions) {
     [name]: null,
   }))
 }
-fakePrompt.registerPrompt = sinon.stub()
-fakePrompt.restoreDefaultPrompts = sinon.stub()
+fakePrompt.registerPrompt = sinon.fake()
+fakePrompt.restoreDefaultPrompts = sinon.fake()
 
 export default function makeContext(projectConfig: GraphQLConfigData): Context {
   return {
     spinner: {
-      start: sinon.stub().callsFake(console.log),
-      fail: sinon.stub().callsFake(console.error),
-      warn: sinon.stub().callsFake(console.warn),
+      start: sinon.fake(),
+      fail: sinon.fake(console.error),
+      warn: sinon.fake(console.warn),
       stop: sinon.fake(),
     },
     async getConfig() {

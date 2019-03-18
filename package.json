@@ -17,7 +17,7 @@
     "prepare": "npm run build",
     "build": "rm -rf dist && tsc -d",
     "pretest": "npm run build && npm run lint",
-    "test": "nyc ava --serial",
+    "test": "nyc ava --serial --verbose",
     "prepack": "npm run build",
     "pack": "pkg dist/bin.js -c package.json -o packed/graphql --options no-warnings",
     "lint": "tslint {src,test}/**/*.ts",
@@ -32,6 +32,12 @@
     "url": "https://github.com/graphql-cli/graphql-cli/issues"
   },
   "homepage": "https://github.com/graphql-cli/graphql-cli#readme",
+  "nyc": {
+    "reporter": [
+      "lcov",
+      "text"
+    ]
+  },
   "pkg": {
     "scripts": "dist/**/*.js",
     "targets": [
