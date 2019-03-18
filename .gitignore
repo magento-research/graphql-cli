@@ -41,6 +41,10 @@ package-lock.json
 # graphql files on the root dir
 /*.graphql
 /*.graphqlconfig
+!/sampleSchema.graphql
 
 # es5 output dir
 /dist/
+
+# vscode workspace
+.vscode

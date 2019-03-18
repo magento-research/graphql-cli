@@ -3,7 +3,12 @@ import * as fs from 'fs'
 import * as os from 'os'
 import * as mkdirp from 'mkdirp'
 import { relative, dirname } from 'path'
-import { printSchema, GraphQLSchema, buildClientSchema, validateSchema } from 'graphql'
+import {
+  printSchema,
+  GraphQLSchema,
+  buildClientSchema,
+  validateSchema,
+} from 'graphql'
 import {
   writeSchema,
   GraphQLConfig,
@@ -74,6 +79,7 @@ const command: CommandObject = {
       .implies('--no-endpoint', '--no-header'),
 
   handler: async (context: Context, argv: Arguments) => {
+    debugger
     if (argv.endpoint) {
       argv.all = false
     }
@@ -217,7 +223,11 @@ async function updateSingleProjectEndpoint(
       : newSchemaResult
     const errors = validateSchema(clientSchema)
     if (errors.length > 0) {
-      console.error(chalk.red(`${os.EOL}GraphQL endpoint generated invalid schema: ${errors}`))
+      console.error(
+        chalk.red(
+          `${os.EOL}GraphQL endpoint generated invalid schema: ${errors}`,
+        ),
+      )
       setTimeout(() => {
         process.exit(1)
       }, 500)
@@ -236,7 +246,10 @@ async function updateSingleProjectEndpoint(
         : config!.getSchemaSDL()
     } catch (e) {
       // ignore error if no previous schema file existed
-      if (e.message === 'Unsupported schema file extention. Only ".graphql" and ".json" are supported') {
+      if (
+        e.message ===
+        'Unsupported schema file extention. Only ".graphql" and ".json" are supported'
+      ) {
         console.error(e.message)
         setTimeout(() => {
           process.exit(1)
@@ -244,7 +257,11 @@ async function updateSingleProjectEndpoint(
       }
       // TODO: Add other non-blocking errors to this list
       if (e.message.toLowerCase().indexOf('syntax error') > -1) {
-        console.log(`${os.EOL}Ignoring existing schema because it is invalid: ${chalk.red(e.message)}`)
+        console.log(
+          `${os.EOL}Ignoring existing schema because it is invalid: ${chalk.red(
+            e.message,
+          )}`,
+        )
       } else if (e.code !== 'ENOENT') {
         throw e
       }
